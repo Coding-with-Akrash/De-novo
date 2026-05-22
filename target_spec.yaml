@@ -1,0 +1,49 @@
+# Target Protein Specification
+
+target_protein:
+  name: "Demo_Target_Protein"
+  uniprot_id: "P12345"  # Example UniProt ID
+  pdb_id: "1ABC"        # Example PDB ID
+  alphafold_id: "P12345" # AlphaFold database ID
+
+design_goals:
+  type: "binding_protein"  # or "enzyme", "antibody", etc.
+  target_affinity: "high"  # high, medium, low
+  specificity: "selective" # selective, broad
+
+pipeline_parameters:
+  sequence_generation:
+    num_sequences: 100
+    sequence_length:
+      min: 100
+      max: 300
+    temperature: 0.8
+
+  docking:
+    search_space:
+      center: [0.0, 0.0, 0.0]
+      size: [20.0, 20.0, 20.0]
+    num_poses: 10
+
+  molecular_dynamics:
+    simulation_time: 5.0  # nanoseconds
+    temperature: 300      # Kelvin
+    pressure: 1.0         # bar
+
+success_criteria:
+  structure_quality:
+    plddt_threshold: 75.0
+    pae_threshold: 10.0
+
+  binding_affinity:
+    docking_energy_threshold: -7.5  # kcal/mol
+
+  stability:
+    rmsd_threshold: 2.0    # Angstroms
+    ddg_threshold: 2.0     # kcal/mol
+
+  developability:
+    solubility_threshold: 0.6
+    aggregation_threshold: 0.4
+    immunogenicity_threshold: 0.3
+    manufacturability_threshold: 0.7
